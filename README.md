@@ -1,0 +1,3 @@
+# WEEK 7 Assignment
+
+## Planning to use Langchain to implement Day 1 task and see how it fares...
