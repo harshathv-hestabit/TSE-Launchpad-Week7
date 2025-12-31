@@ -1,0 +1,3 @@
+provider: <NAME> # local, api
+model_name: <MODEL-NAME>
+api_key_env: <API-KEY>
