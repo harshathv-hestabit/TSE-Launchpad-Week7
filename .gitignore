@@ -4,3 +4,4 @@ model.yaml
 src/data/raw/
 __pycache__
 dataset
+images
