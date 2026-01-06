@@ -17,12 +17,12 @@ from generator.llm_client import LLM
 
 # pprint(retriever.invoke("company"),indent=2)
 
-results = hybrid_retrieve(query="What was Downer's total revenue for 2022?")
-# # pprint(results)
-print("\n Context Builder results below")
-contextBuilder = ContextBuilder()
-context = contextBuilder.build(documents=results)
-print(context)
+# results = hybrid_retrieve(query="What was Downer's total revenue for 2022?")
+
+# print("\n Context Builder results below")
+# contextBuilder = ContextBuilder()
+# context = contextBuilder.build(documents=results)
+# print(context)
 
 
 '''
@@ -58,3 +58,52 @@ Generator test
 #     # output = response["choices"][0]["message"]["content"]
 #     output = response
 # print(output)
+from pathlib import Path
+from PIL import Image
+from retriever.image_search import ImageSearcher
+
+COLLECTION = "embedded_data"
+
+searcher = ImageSearcher()
+
+print("\nTEXT → IMAGE")
+results = searcher.search_by_text(
+    query="organizational hierarchy chart",
+    limit=3,
+)
+
+if results:
+    for i, r in enumerate(results, 1):
+        print(f"\n{i}. Score: {r['score']}")
+        if r['page_content']:
+            print(f"   Content: {r['page_content'][:150]}...")
+else:
+    print("No results found for text query")
+
+print("\n\nIMAGE → IMAGE")
+test_image = Path("src/data/cleaned/images/figure-1-1.jpg")
+
+if test_image.exists():
+    results = searcher.search_by_image(test_image, limit=3)
+    
+    if results:
+        for i, r in enumerate(results, 1):
+            print(f"\n{i}. Score: {r['score']}")
+    else:
+        print("No results found for image query")
+else:
+    print(f"Test image not found: {test_image}")
+
+print("\n\nIMAGE → TEXT")
+if test_image.exists():
+    results = searcher.search_image_to_text(test_image, limit=3)
+    
+    if results:
+        for i, r in enumerate(results, 1):
+            print(f"\n{i}. Score: {r['score']}")
+            if r['page_content']:
+                print(f"   Content: {r['page_content'][:150]}...")
+    else:
+        print("No results found for image-to-text query")
+else:
+    print(f"Test image not found: {test_image}")
