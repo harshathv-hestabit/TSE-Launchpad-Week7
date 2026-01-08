@@ -7,7 +7,7 @@ from qdrant_client import QdrantClient
 
 class ImageSearcher:
     def __init__(self):
-        self.client = QdrantClient(path="src/vectorstore/qdrant")
+        self.client = QdrantClient(url="http://localhost:6333")
         self.collection_name = "embedded_data"
         self.clip = CLIPEmbedder()
 
@@ -98,8 +98,8 @@ class ImageSearcher:
                     "source": metadata.get("source"),
                     "page": metadata.get("page"),
                     "element_type": metadata.get("element_type"),
-                    "has_caption": metadata.get("has_caption"),
-                    "has_ocr": metadata.get("has_ocr"),
+                    "caption": metadata.get("caption"),
+                    "ocr": metadata.get("ocr"),
                     "page_content": page_content,
                 }
             )

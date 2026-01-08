@@ -5,3 +5,6 @@ src/data/raw/
 __pycache__
 dataset
 images
+qdrant_storage
+.qdrant
+.deepeval

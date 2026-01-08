@@ -22,7 +22,8 @@ def get_vectorstore():
     sparse_embeddings = fastembed_sparse.FastEmbedSparse(model_name=SPARSE_MODEL)
     clip_embedder = CLIPEmbedder()
     
-    _client = QdrantClient(path=QDRANT_PATH)
+    # _client = QdrantClient(path=QDRANT_PATH) # Previously this was used for Local Qdrant Usuage
+    _client = QdrantClient(url="http://localhost:6333")  #Used a qdrant docker image to run on this port, to support concurrent request from fastapi backend
 
     existing_collections = {
         c.name for c in _client.get_collections().collections
